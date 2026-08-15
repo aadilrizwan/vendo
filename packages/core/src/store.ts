@@ -141,7 +141,7 @@ export interface IdempotencyLedger {
       already received must not change under it. */
   record(scope: IdempotencyScope, requestHash: string, answer: IdempotencyRecord): Promise<void>;
   /**
-   * Reserve (tenant, op, key) for this request hash BEFORE the mutation runs.
+   * Atomically reserve (tenant, op, key) for this request hash BEFORE the mutation runs.
    * Answers the reservation's owner: `"claimed"` when this caller won the key,
    * or the {@link IdempotencyRecord} a prior owner already published. A differing
    * request hash throws `conflict` HERE, so a refused request never reaches
