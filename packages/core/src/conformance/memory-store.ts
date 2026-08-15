@@ -531,7 +531,7 @@ export function memoryStoreAdapter(
       async record(scope, requestHash, answer) {
         const key = ledgerKey(scope);
         const held = ledger.get(key);
-        if (held !== undefined && held.answer.status !== 0 && held.requestHash === requestHash) return;
+        if (held !== undefined && (held.answer.status !== 0 || held.requestHash !== requestHash)) return;
         ledger.set(key, { requestHash, answer: { status: answer.status, result: jsonCopy(answer.result) } });
       },
     },
